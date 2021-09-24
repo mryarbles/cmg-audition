@@ -1,0 +1,6 @@
+build/*
+stores/*
+scripts/*
+config/*
+cache-users-lambda/*
+__snapshots__/*
