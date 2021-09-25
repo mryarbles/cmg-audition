@@ -1,4 +1,4 @@
-import AnalyticsPlugin from './AnalyticsPlugin';
+import AnalyticsPlugin, { PLUGIN_UPDATE_OVERRIDE_ERROR } from './AnalyticsPlugin';
 
 let plugin;
 describe('analytics.plugins.AnalyticsPlugin', () => {
@@ -11,6 +11,11 @@ describe('analytics.plugins.AnalyticsPlugin', () => {
     it('allows you to set a action type', () => {
       expect(plugin.type).toBe('test');
     });
-  });
 
+    it('should require a update method be overridden', () => {
+      expect(() => {
+        plugin.update('test');
+      }).toThrow(PLUGIN_UPDATE_OVERRIDE_ERROR);
+    });
+  });
 });

@@ -48,8 +48,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-var-requires': 'off',
-    'jest/valid-describe': 'off',
-    'prettier/prettier': 'warn'
+    'jest/valid-describe': 'off'
   },
   overrides: [
     {

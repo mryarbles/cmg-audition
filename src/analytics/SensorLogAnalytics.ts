@@ -1,47 +1,42 @@
 import * as fs from 'fs';
 
-import AnalyticsPlugin, { IAnalyticsPlugin } from './AnalyticsPlugin';
+import AnalyticsPlugin, { IAnalyticsPlugin } from './plugins/AnalyticsPlugin';
 
-import AnalyticsPipeline from './AnalyticsPipeline';
+import AnalyticsPipeline, { SensorLogPipelinePayload } from "./AnalyticsPipeline";
 
-
+export function trimEmpty(arr: any[]): any[] {
+  const result = arr.filter((val: any) => {
+    return typeof val !== undefined && val !== '';
+  });
+  return result;
+}
 
 interface ISensorLogAnalytics {
-  addPlugin(plugin: IAnalyticsPlugin): void;
-  read(log: string): string;
+  registerPlugin(plugin: IAnalyticsPlugin): void;
+  read(log: string): ISensorLogAnalytics;
+  output(): string;
 }
 
 export default class SensorLogAnalytics {
 
   protected _output: any = {};
   protected _input?: string[];
-  protected _pipeline: AnalyticsPipeline = new AnalyticsPipeline();
-
-  constructor() {
-
-  }
+  protected _pipeline: AnalyticsPipeline<SensorLogPipelinePayload> = new AnalyticsPipeline();
 
   public registerPlugin(plugin: IAnalyticsPlugin): void {
     this._pipeline.addPlugin(plugin);
   }
 
-  public read(log: string): string {
-    this._input = log.split("\n");
+  public read(log: string): ISensorLogAnalytics {
+    this._input = trimEmpty(log.split("\n"));
     this._input.forEach((line: string) => {
-
+      this._pipeline.update(line);
     });
-    return JSON.stringify(this._output);
+
+    return this;
   }
 
-  /*protected _setPlugin(name: string): void {
-    this._currentPlugin = this._plugins.get(name);
-  }
-
-  protected _setReferenceData(temperature: number, humidity: number, carbonMonoxide: number): void {
-    this._referenceData = { temperature, humidity, carbonMonoxide };
-  }*/
-
-  protected _updateOutput(acc: IPlugin) {
-    this._output[acc.name] = acc.value;
+  public output(): string {
+    return JSON.stringify(this._pipeline.output());
   }
 }

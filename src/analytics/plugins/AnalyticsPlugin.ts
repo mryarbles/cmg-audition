@@ -1,28 +1,24 @@
-import { AnalyticsPipelinePayload } from "../AnalyticsPipeline";
+export const PLUGIN_UPDATE_OVERRIDE_ERROR: string = 'Update method was not implemented in child class';
 
 export interface IAnalyticsPlugin {
   type: string;
-  update(line: string, payload: AnalyticsPipelinePayload): void;
-  getValue(): string;
+  update(line: string, payload: any): any;
 }
 
 export default class AnalyticsPlugin implements IAnalyticsPlugin {
   protected _type: string;
-  protected _value: string = '';
 
   constructor( type: string = '') {
     this._type = type;
   }
 
-  update(line: string, payload: AnalyticsPipelinePayload): void {
-    throw new Error('Update method was not implemented in child class')
+  update(line: string, payload: any): any {
+    throw new Error(PLUGIN_UPDATE_OVERRIDE_ERROR)
   }
 
   get type(): string {
     return this._type;
   }
 
-  getValue(): string {
-    return this._value;
-  }
+
 }
