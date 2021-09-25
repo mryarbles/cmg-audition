@@ -6,7 +6,7 @@ Because of this, the pipeline has to do some management of active plugins and wh
 
 One thing that I considered to simplify things was to run any calculations within any of the AccumulatorPlugins with each tick and update the current state of the output accordingly. I chose a slightly more complex route of waiting to grab these plugins output until the current plugins stream of data was complete for performance reason. The gains are probably pretty negligible though, so any refactoring I would do would start with finding a way to simplify the pipeline logic.
 
-The other thing that could obviously improved, is to load the data as a Stream and parse the chunks as they are loaded. 
+The other thing that could obviously be improved, is to load the data as a Stream and parse the chunks as they are loaded. The changes required to facilitate this improvement should be minor.
 
 ## Requirements
 Node v15.5.1
