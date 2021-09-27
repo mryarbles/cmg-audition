@@ -37,6 +37,6 @@ export default class SensorLogAnalytics {
   }
 
   public output(): string {
-    return JSON.stringify(this._pipeline.output());
+    return JSON.stringify(this._pipeline.output().output);
   }
 }
