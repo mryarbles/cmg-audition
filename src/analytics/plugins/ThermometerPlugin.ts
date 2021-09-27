@@ -1,11 +1,7 @@
-import * as math from 'mathjs';
+import * as mathjs from 'mathjs';
 
-import AnalyticsPlugin from "./AnalyticsPlugin";
-import { SensorLogPipelinePayload } from "../AnalyticsPipeline";
 import ISensorAccumulatorPlugin from "./ISensorAccumulatorPlugin";
 import AccumulatorAnalyticsPlugin from "./AccumulatorAnalyticsPlugin";
-
-export const CONFIGURATION_ERROR: string = 'Incorrect configuration';
 
 export const MEASUREMENTS = {
   ULTRA: 'ultra precise',
@@ -14,9 +10,9 @@ export const MEASUREMENTS = {
 }
 
 export function getValueRepresentation(values: number[], ref: number): string {
-  const mean: number = math.mean(values);
+  const mean: number = mathjs.mean(values);
   const diff: number = Math.abs(mean - ref);
-  const deviation: number = math.std(values);
+  const deviation: number = mathjs.std(values);
   if (diff <= .5 && deviation < 3) return MEASUREMENTS.ULTRA;
   if (diff <= .5 && deviation < 5) return MEASUREMENTS.VERY_PRECISE;
   return MEASUREMENTS.PRECISE;

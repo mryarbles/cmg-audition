@@ -1,5 +1,3 @@
-import * as math from 'mathjs';
-
 import AnalyticsPlugin from "./AnalyticsPlugin";
 import { ReferenceData, SensorLogPipelinePayload } from "../AnalyticsPipeline";
 import ISensorAccumulatorPlugin from "./ISensorAccumulatorPlugin";
